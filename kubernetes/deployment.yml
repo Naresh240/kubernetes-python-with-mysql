@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      name: python-app 
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - name: python-app
+        image: naresh240/python-app:latest
+        ports:
+        - containerPort: 5000 
+        env:
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-configmap
+              key: username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secrets
+              key: password
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: hostname-config
+              key: mysql_host
+

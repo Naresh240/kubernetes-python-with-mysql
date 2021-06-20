@@ -1,0 +1,9 @@
+FROM python:3.6
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+
+ARG MYSQL_HOST MYSQL_USER MYSQL_PASSWORD
+ENV MYSQL_HOST=${MYSQL_HOST} MYSQL_USER=${MYSQL_USER} MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
+ENTRYPOINT ["python", "application.py"]
