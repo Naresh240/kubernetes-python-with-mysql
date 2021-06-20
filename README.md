@@ -23,10 +23,13 @@
 # Create "employee" table in mysqldb
     CREATE TABLE IF NOT EXISTS employee(empno VARCHAR(20),empname VARCHAR(20),salary VARCHAR(20));
     commit;
+# Create Confing Map for identifing hostname of mysql server
+    kubectl create configmap hostname-config --from-literal=mysql_host=$(kubectl get svc mysql-service -o jsonpath="{.spec.clusterIP}")
 # Deploy python Application
     kubectl apply -f kubernetes/
 # Check output of application using ingress
   ````PUT data using insertemployee````
+  
   http://6fa5d906-default-pythoning-b984-74873513.us-east-1.elb.amazonaws.com/insertemployee
   
   ![image](https://user-images.githubusercontent.com/58024415/122684358-90809900-d222-11eb-97f9-662a324d2ee5.png)   
